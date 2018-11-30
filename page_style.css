@@ -32,3 +32,7 @@
 .tooltip.right::before {
     right: 1.65rem;
 }
+td {
+    width: 50%;
+    text-align: center;
+}

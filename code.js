@@ -99,5 +99,23 @@ var tweetsChart = eventDrops({
   }
 });
 
+var newsChart = eventDrops({
+  range: {
+    start: new Date('10/01/2017 6:55:11 PM'),
+    end: new Date('10/09/2017 7:15:11 PM')
+  },
+  //metaballs: {
+  //  blurDeviation: 25
+  //},
+  drop: {
+    date: d => d.date,
+    onMouseOver: makeTooltip,
+    onMouseOut: rmTooltip
+  }
+});
+
 var tweetsData = unifyStuff(tweetsHist);
+var newsData = unifyStuff(newsHist);
+
 d3.select("#tweetsChart").datum(tweetsData).call(tweetsChart);
+d3.select("#newsChart").datum(newsData).call(newsChart);
