@@ -93,6 +93,10 @@ const newsHistCSV = ",0,1,2,3,4,5,6\n0,510,656,615,652,641,378,466\n1,340,540,58
 var newsHist = d3.csvParse(newsHistCSV);
 
 var tweetsConfig = {
+  range: {
+    start: new Date('10/01/2017 6:55:11 PM'),
+    end: new Date('10/09/2017 7:15:11 PM')
+  },
   //metaballs: {
   //  blurDeviation: 25
   //},
@@ -107,6 +111,10 @@ var tweetsConfig = {
 };
 
 var newsConfig = {
+  range: {
+    start: new Date('10/01/2017 6:55:11 PM'),
+    end: new Date('10/09/2017 7:15:11 PM')
+  },
   //metaballs: {
   //  blurDeviation: 25
   //},
