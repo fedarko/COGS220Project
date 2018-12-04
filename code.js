@@ -176,6 +176,9 @@ var newsConfig = {
   },
   zoom: {
     onZoom: replicateNewsZoom
+  },
+  line: {
+    color: data => colorLine(data),
   }
 };
 
