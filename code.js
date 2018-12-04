@@ -103,13 +103,63 @@ var tweetsConfig = {
   //},
   drop: {
     date: d => d.date,
+    // color: data => colorDrop(data),
     onMouseOver: makeTooltip,
     onMouseOut: rmTooltip
   },
   zoom: {
     onZoom: replicateTweetsZoom
+  },
+  line: {
+    color: data => colorLine(data),
   }
 };
+
+var counter = 0;
+var y = 16777215
+var first_date = 0;
+
+function colorDrop(data){
+  counter = counter + 1;
+  console.log("Counter: ", counter);
+  var valuee = data.date.getTime();
+  if (counter == 1) {
+    first_date = valuee;
+  }
+  else {
+    valuee =  Math.abs(first_date - valuee)
+  }
+  var z = Math.round(valuee % y);
+  console.log("Value: ", valuee.toString(16));
+  console.log("Quotient: ", z.toString(16));
+  var col = "#".concat(z.toString(16));
+  console.log("Color:", col)
+  return col;
+  // if (counter > 0 && counter <= 100) {return 'red';}
+  // if (counter > 100 && counter < 200) {return 'blue';}
+  // if (counter > 200) {return 'green';}
+  // var colorDigits = '0123456789ABCDEF';
+  // var col = "#";
+  // var id = 0;
+  // for (var i = 0; i < 6; i++){
+  //     id = Math.floor(Math.random() * 16);
+  //     col += (colorDigits.charAt(id));
+  // }
+  // return col;
+}
+
+function colorLine(data){
+  console.log(parseInt(data.name));
+  var colorDigits = '0123456789ABCDEF';
+  var col = "#";
+  var id = 0;
+  for (var i = 0; i < 6; i++){
+      id = Math.floor(Math.random() * 16);
+      col += (colorDigits.charAt(id));
+  }
+  console.log(col)
+  return col;
+}
 
 var newsConfig = {
   range: {
