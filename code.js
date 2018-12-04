@@ -78,16 +78,32 @@ function randn_bm(scaleFactor) {
     return num;
 }
 
+/* These replicate functions sync up zoom events detected on one chart to
+ * the other chart. Ideally these would just redraw the chart, but right now we
+ * actually destroy the chart's interior and then redraw it (which is laggy,
+ * but works).
+ *
+ * A TODO here is to add some sort of polling, akin to what's mentioned
+ * in https://developer.mozilla.org/en-US/docs/Web/Events/scroll#Example.
+ */
 function replicateTweetsZoom(e) {
-    console.log(tweetsChart.scale().domain());
+    replaceChart("news");
 }
 
 function replicateNewsZoom(e) {
-    console.log(newsChart.scale().domain());
+    replaceChart("tweets");
+    //console.log(e);
+
     // So this function *should* redraw the tweets chart with the news chart's
     // scale, but instead it just returns a function without seeming to do
-    // anything else. No idea what that function does.
-    //tweetsChart.draw(tweetsConfig, newsChart.scale());
+    // anything else. That function takes as input a d3 selection, apparently?
+    // But we haven't been able to successfully call it with a d3 selection.
+    //
+    // Even trying to mimic "root" in this test code --
+    // https://github.com/marmelab/EventDrops/blob/master/src/index.spec.js#L151
+    // -- doesn't seem to be working (I get this sort of error:
+    // https://github.com/marmelab/EventDrops/issues/246).
+    //tweetsChart.draw(tweetsConfig, newsChart.scale())(e);
 
     // Below here is a mishmash of test code from us trying to solve this.
     //var root = d3.select("#tweetsChart").data(tweetsHist);
@@ -193,10 +209,43 @@ var newsConfig = {
   }
 };
 
-var tweetsChart = eventDrops(tweetsConfig);
-var newsChart = eventDrops(newsConfig);
-var tweetsData = unifyStuff(tweetsHist);
-var newsData = unifyStuff(newsHist);
+var tweetsChart, newsChart;
 
-d3.select("#tweetsChart").datum(tweetsData).call(tweetsChart);
-d3.select("#newsChart").datum(newsData).call(newsChart);
+function createChart(chartType, otherScale) {
+    var chart;
+    var data;
+    var divID = "#";
+    var config = (chartType === "news") ? newsConfig : tweetsConfig;
+    if (otherScale !== undefined) {
+        config["range"]["start"] = otherScale[0];
+        config["range"]["end"] = otherScale[1];
+    }
+    if (chartType === "news") {
+        newsChart = eventDrops(config);
+        data = unifyStuff(newsHist);
+        divID += "newsChart";
+        chart = newsChart;
+    } else {
+        tweetsChart = eventDrops(config);
+        data = unifyStuff(tweetsHist);
+        divID += "tweetsChart";
+        chart = tweetsChart;
+    }
+    d3.select(divID).datum(data).call(chart);
+}
+
+function replaceChart(chartType) {
+    var divID, newScale;
+    if (chartType === "news") {
+        divID = "newsChart";
+        newScale = tweetsChart.scale().domain();
+    } else {
+        divID = "tweetsChart";
+        newScale = newsChart.scale().domain();
+    }
+    d3.select("#" + divID + " *").remove();
+    createChart(chartType, newScale);
+}
+
+createChart("tweets");
+createChart("news");
