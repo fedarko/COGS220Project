@@ -316,14 +316,14 @@ function replaceChart(chartType) {
         divID = "newsChart";
         newScale = tweetsChart.scale().domain();
         data = newsChart.filteredData()
-        console.log(data)
+        //console.log(data)
     } else {
         divID = "tweetsChart";
         newScale = newsChart.scale().domain();
         data = tweetsChart.filteredData();
-        console.log(data);
+        //console.log(data);
     }
-    console.log(data)
+    //console.log(data)
     d3.select("#" + divID + " *").remove();
     createChart(chartType, data, newScale);
 }
