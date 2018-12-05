@@ -36,3 +36,6 @@ td {
     width: 50%;
     text-align: center;
 }
+td, table {
+    border: 1px solid gray;
+}
