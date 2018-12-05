@@ -39,3 +39,6 @@ td {
 td, table {
     border: 1px solid gray;
 }
+table {
+    width: 100%;
+}
