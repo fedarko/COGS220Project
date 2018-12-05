@@ -15,6 +15,26 @@ function makeTooltip(e) {
   tooltip.html(
     `
     <div class="content">
+      <strong>${e.date.toString().substring(0, 24)}</strong>
+      <br />
+      ${e.tooltip.toString()}
+    </div>
+    `
+  ).style('left', `${d3.event.pageX - 30}px`).style('top', `${d3.event.pageY + 20}px`);
+  // Make the tooltip visible
+  tooltip.transition().duration(200).style("opacity", 1).style("pointer-events", "auto");
+}
+
+// NOTE this is just makeTooltip() but it doesn't include time of day
+// (literally all that's different is the end value in the substring)
+// ideally this would be combined with makeTooltip() but for now a bit of
+// redundancy is ok
+function makeTooltipNews(e) {
+  tooltip.html(
+    `
+    <div class="content">
+      <strong>${e.date.toString().substring(0, 15)}</strong>
+      <br />
       ${e.tooltip.toString()}
     </div>
     `
@@ -177,7 +197,7 @@ for (ci = 0; ci < 25; ci++) {
     //},
     drop: {
       date: d => d.date,
-      onMouseOver: makeTooltip,
+      onMouseOver: makeTooltipNews,
       onMouseOut: rmTooltip
     },
     zoom: {
