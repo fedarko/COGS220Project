@@ -120,6 +120,15 @@ var tweetsHist = d3.csvParse(tweetsHistCSV);
 const newsHistCSV = ",0,1,2,3,4,5,6\n0,510,656,615,652,641,378,466\n1,340,540,587,666,442,202,212\n2,526,562,659,694,633,593,401\n3,655,600,532,572,675,511,564\n4,333,284,399,390,506,458,349\n5,456,533,466,609,526,74,111\n6,451,542,607,675,645,342,371\n7,452,513,428,324,390,253,255\n8,554,439,309,448,356,190,505\n9,369,403,540,397,394,275,290\n10,1355,1081,661,487,326,194,157\n11,424,667,500,583,560,251,380\n12,372,496,478,559,513,415,488\n13,156,170,124,187,117,53,69\n14,626,763,571,558,553,160,161\n15,280,422,300,325,219,59,102\n16,204,297,287,340,276,156,155\n17,372,399,524,529,463,250,242\n18,215,239,194,234,307,296,330\n19,393,381,235,354,339,344,368\n20,245,233,267,252,390,314,297\n21,96,190,159,154,150,37,9\n22,551,679,547,673,510,305,393\n23,275,337,356,398,456,236,370\n24,482,482,543,569,580,347,159";
 var newsHist = d3.csvParse(newsHistCSV);
 
+var tweetsColors = [];
+var newsColors = [];
+for (ci = 0; ci < tweetsHist.length; ci++) {
+    tweetsColors.push(colorLine());
+}
+for (var ci = 0; ci < newsHist.length; ci++) {
+    newsColors.push(colorLine());
+}
+
 var tweetsConfig = {
   range: {
     start: new Date('10/01/2017 6:55:11 PM'),
@@ -138,7 +147,7 @@ var tweetsConfig = {
     onZoom: replicateTweetsZoom
   },
   line: {
-    color: data => colorLine(data),
+    color: (data, index) => tweetsColors[index]
   }
 };
 
@@ -176,7 +185,7 @@ function colorDrop(data){
 }
 
 function colorLine(data){
-  console.log(parseInt(data.name));
+  //console.log(parseInt(data.name));
   var colorDigits = '0123456789ABCDEF';
   var col = "#";
   var id = 0;
@@ -184,7 +193,7 @@ function colorLine(data){
       id = Math.floor(Math.random() * 16);
       col += (colorDigits.charAt(id));
   }
-  console.log(col)
+  //console.log(col)
   return col;
 }
 
@@ -205,7 +214,7 @@ var newsConfig = {
     onZoom: replicateNewsZoom
   },
   line: {
-    color: data => colorLine(data),
+    color: (data, index) => newsColors[index]
   }
 };
 
