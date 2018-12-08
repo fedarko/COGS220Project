@@ -184,53 +184,56 @@ for (ci = 0; ci < 25; ci++) {
 }
 
 // Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
-  var newsConfig = {
-    range: {
-      start: new Date('10/01/2017 6:55:11 PM'),
-      end: new Date('10/09/2017 7:15:11 PM')
-    },
-    //metaballs: {
-    //  blurDeviation: 25
-    //},
-    drop: {
-      date: d => d.date,
-      onMouseOver: makeTooltipNews,
-      onMouseOut: rmTooltip
-    },
-    zoom: {
-      onZoom: replicateNewsZoom
-    },
-    line: {
-      color: (data, index) => rowColors[index],
-    }
-  };
+var newsConfig = {
+  range: {
+    start: new Date('10/01/2017 6:55:11 PM'),
+    end: new Date('10/09/2017 7:15:11 PM')
+  },
+  //metaballs: {
+  //  blurDeviation: 25
+  //},
+  drop: {
+    date: d => d.date,
+    onMouseOver: makeTooltipNews,
+    onMouseOut: rmTooltip
+  },
+  zoom: {
+    onZoom: replicateNewsZoom
+    // NOTE doesn't seem to work well with the linked zooming
+    // since that doesn't have a max level
+    //maximumScale: 10
+  },
+  line: {
+    color: (data, index) => rowColors[index],
+  }
+};
 
 // Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
-  var tweetsConfig = {
-    range: {
-      start: new Date('10/01/2017 6:55:11 PM'),
-      end: new Date('10/09/2017 7:15:11 PM')
-    },
-    //metaballs: {
-    //  blurDeviation: 25
-    //},
-    drop: {
-      date: d => d.date,
-      // color: data => colorDrop(data),
-      onMouseOver: makeTooltip,
-      onMouseOut: rmTooltip
-    },
-    zoom: {
-      onZoom: replicateTweetsZoom
-    },
-    line: {
-      color: (data, index) => rowColors[index],
-    }
-  };
+var tweetsConfig = {
+  range: {
+    start: new Date('10/01/2017 6:55:11 PM'),
+    end: new Date('10/09/2017 7:15:11 PM')
+  },
+  //metaballs: {
+  //  blurDeviation: 25
+  //},
+  drop: {
+    date: d => d.date,
+    // color: data => colorDrop(data),
+    onMouseOver: makeTooltip,
+    onMouseOut: rmTooltip
+  },
+  zoom: {
+    onZoom: replicateTweetsZoom
+  },
+  line: {
+    color: (data, index) => rowColors[index],
+  }
+};
 
-  var counter = 0;
-  var y = 16777215
-  var first_date = 0;
+var counter = 0;
+var y = 16777215;
+var first_date = 0;
 
 var tweet_file ="https://raw.githubusercontent.com/sid-dinesh94/sid-dinesh94.github.io/master/projects/textIntegration/news_sourced/tweets.json";
 var news_file ="https://raw.githubusercontent.com/sid-dinesh94/sid-dinesh94.github.io/master/projects/textIntegration/news_sourced/news.json";
