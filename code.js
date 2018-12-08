@@ -1,9 +1,4 @@
-// URL: https://beta.observablehq.com/d/a622c917118d5e61
-// Title: COGS 220 EventDrops Demo
-// Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
-// and https://github.com/marmelab/EventDrops/blob/fc0d8ca4001156ddfc5738133b53bf479ffb190f/demo/demo.js
-
-
+// Based on https://github.com/marmelab/EventDrops/blob/fc0d8ca4001156ddfc5738133b53bf479ffb190f/demo/demo.js
 var tooltip = d3
   .select('body')
   .append('div')
@@ -11,6 +6,7 @@ var tooltip = d3
   .style('opacity', 0)
   .style('pointer-events', 'auto');
 
+// Based on https://github.com/marmelab/EventDrops/blob/fc0d8ca4001156ddfc5738133b53bf479ffb190f/demo/demo.js
 function makeTooltip(e) {
   tooltip.html(
     `
@@ -29,6 +25,7 @@ function makeTooltip(e) {
 // (literally all that's different is the end value in the substring)
 // ideally this would be combined with makeTooltip() but for now a bit of
 // redundancy is ok
+// Based on https://github.com/marmelab/EventDrops/blob/fc0d8ca4001156ddfc5738133b53bf479ffb190f/demo/demo.js
 function makeTooltipNews(e) {
   tooltip.html(
     `
@@ -43,6 +40,7 @@ function makeTooltipNews(e) {
   tooltip.transition().duration(200).style("opacity", 1).style("pointer-events", "auto");
 }
 
+// Based on https://github.com/marmelab/EventDrops/blob/fc0d8ca4001156ddfc5738133b53bf479ffb190f/demo/demo.js
 function rmTooltip(e) {
   // Make the tooltip invisible
   tooltip.transition().duration(500).style("opacity", 0).style("pointer-events", "none");
@@ -185,8 +183,7 @@ for (ci = 0; ci < 25; ci++) {
     rowColors.push(colorLine());
 }
 
-
-
+// Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
   var newsConfig = {
     range: {
       start: new Date('10/01/2017 6:55:11 PM'),
@@ -208,6 +205,7 @@ for (ci = 0; ci < 25; ci++) {
     }
   };
 
+// Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
   var tweetsConfig = {
     range: {
       start: new Date('10/01/2017 6:55:11 PM'),
@@ -262,8 +260,6 @@ function render(error, tweet_json, news_json) {
 //console.log(tweets_data)
 //tweetData = createEventsFromTweets(tweet_data);
 
-
-
 function colorDrop(data){
   counter = counter + 1;
   //console.log("Counter: ", counter);
@@ -309,6 +305,7 @@ function colorLine(data){
 
 var tweetsChart, newsChart;
 
+// Based on https://beta.observablehq.com/@mbostock/hello-eventdrops
 function createChart(chartType, data, otherScale) {
     var chart;
     var data;
@@ -347,6 +344,3 @@ function replaceChart(chartType) {
     d3.select("#" + divID + " *").remove();
     createChart(chartType, data, newScale);
 }
-
-
-
