@@ -132,7 +132,6 @@ function replicateNewsZoom(e) {
     //d(d3.select("#tweetsChart").datum(tweetsData).data());
 }
 
-
 function createEventsFromTweets(jsonData){
   console.log('Entered json processor');
   var outputData = [];
@@ -239,20 +238,18 @@ var tweet_file ="https://raw.githubusercontent.com/sid-dinesh94/sid-dinesh94.git
 var news_file ="https://raw.githubusercontent.com/sid-dinesh94/sid-dinesh94.github.io/master/projects/textIntegration/news_sourced/news.json";
 
 var tweetsData;
-var data_copy;
 d3.queue()
   .defer(d3.json, tweet_file)
   .defer(d3.json, news_file)
   .await(render);
 
 function render(error, tweet_json, news_json) {
-  if(error){
-    console.log(error)
+  if (error) {
+    console.log(error);
   }
-  data_copy = news_json;
   var tweetsData = createEventsFromTweets(tweet_json);
   var newsData = createEventsFromNews(news_json);
-  console.log(newsData)
+  console.log(newsData);
 
   //var tweetsData = unifyStuff(tweetsHist);
   //var newsData = unifyStuff(newsHist);
@@ -304,7 +301,6 @@ function colorLine(data){
   //console.log(col)
   return col;
 }
-
 
 var tweetsChart, newsChart;
 
